@@ -66,18 +66,65 @@
  */
 function createDivs(numberDivs = 16)
 {
-    let createdDivs = [];
-    const divContainer = document.querySelector("#container");
+    const createdDivs = new Array;
+    const divContainer = document.querySelector("div#container");
+    divContainer.replaceChildren();
 
     for (let i = 0; i < numberDivs; i++)
     {
+        createdDivs[i] = new Array;
         for (let j = 0; j < numberDivs; j++)
         {
-            createdDivs[i] = document.createElement("div");
-            createdDivs[i].textContent = i;
-            divContainer.appendChild(createdDivs[i]);
-        }    
+            createdDivs[i][j] = document.createElement("div");
+            createdDivs[i][j].textContent = "";
+            divContainer.appendChild(createdDivs[i][j]);
+        }
+
+        const rowDivWrapper = document.createElement("div");
+        rowDivWrapper.classList.add("row");
+        divContainer.insertBefore(rowDivWrapper, createdDivs[i][0]);
+
+        createdDivs[i].forEach(element => {
+            rowDivWrapper.appendChild(element);
+        });
     }
+
+    addMousOverEventListener();
+}
+
+/**
+ * Add class to style of divs when mouseover the divs
+ * @param {event} event
+ * @returns {void} 
+ */
+function hoverDiv(event)
+{
+    event.target.classList.add("hovered");
+}
+
+/**
+ * Adds mouseover event listener
+ * @returns {void}
+ */
+function addMousOverEventListener()
+{
+    const rowDivs = document.querySelectorAll("div.row > div");
+
+    rowDivs.forEach((gridDiv) =>
+    {
+        gridDiv.addEventListener("mouseover", (e) => hoverDiv(e));
+    });
 }
 
 createDivs();
+
+const sizeButton = document.querySelector("button");
+sizeButton.addEventListener("click", () => {
+    let size = 120;
+    while (size >= 100 || Number.isNaN(size))
+    {
+        size = parseInt(prompt("What width of square? (Max 100)"));
+    }
+
+    createDivs(size);
+});
