@@ -1,7 +1,7 @@
 /**
  * @fileoverview An Etch-A-Sketch Style Browser Application
  * @author James
- * @version 0.0.1
+ * @version 0.5.0
  * @date 17Th October 2025
  * @updated 17th October 2025
  * 
@@ -66,30 +66,26 @@
  */
 function createDivs(numberDivs = 16)
 {
-    const createdDivs = new Array;
+    const createdDivs = [];
     const divContainer = document.querySelector("div#container");
     divContainer.replaceChildren();
 
     for (let i = 0; i < numberDivs; i++)
     {
-        createdDivs[i] = new Array;
-        for (let j = 0; j < numberDivs; j++)
-        {
-            createdDivs[i][j] = document.createElement("div");
-            createdDivs[i][j].textContent = "";
-            divContainer.appendChild(createdDivs[i][j]);
-        }
-
         const rowDivWrapper = document.createElement("div");
         rowDivWrapper.classList.add("row");
-        divContainer.insertBefore(rowDivWrapper, createdDivs[i][0]);
 
-        createdDivs[i].forEach(element => {
-            rowDivWrapper.appendChild(element);
-        });
+        for (let j = 0; j < numberDivs; j++)
+        {
+            const cell = document.createElement("div");
+            cell.textContent = "";
+            rowDivWrapper.appendChild(cell);
+        }
+
+        divContainer.appendChild(rowDivWrapper);
     }
 
-    addMousOverEventListener();
+    addMouseOverEventListener();
 }
 
 /**
@@ -106,7 +102,7 @@ function hoverDiv(event)
  * Adds mouseover event listener
  * @returns {void}
  */
-function addMousOverEventListener()
+function addMouseOverEventListener()
 {
     const rowDivs = document.querySelectorAll("div.row > div");
 
@@ -116,14 +112,19 @@ function addMousOverEventListener()
     });
 }
 
+const MAX_WIDTH_SIZE = 100;
+
 createDivs();
 
 const sizeButton = document.querySelector("button");
 sizeButton.addEventListener("click", () => {
     let size = 120;
-    while (size >= 100 || Number.isNaN(size))
+
+    while (size > MAX_WIDTH_SIZE || Number.isNaN(size))
     {
-        size = parseInt(prompt("What width of square? (Max 100)"));
+        const input = prompt("What width of square? (Max 100)");
+        if (input === null) return; // Handle cancelling prompt box
+        size = parseInt(input);
     }
 
     createDivs(size);
