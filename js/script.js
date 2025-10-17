@@ -58,3 +58,26 @@
  * To learn how to use it, check this MDN docs article about the opacity CSS property.
  * You can choose to do either one or both of these challenges, it’s up to you.
  */
+
+/**
+ * Creates Grid of divs
+ * @param {number} [numberDivs = 16]
+ * @returns {void} 
+ */
+function createDivs(numberDivs = 16)
+{
+    let createdDivs = [];
+    const divContainer = document.querySelector("#container");
+
+    for (let i = 0; i < numberDivs; i++)
+    {
+        for (let j = 0; j < numberDivs; j++)
+        {
+            createdDivs[i] = document.createElement("div");
+            createdDivs[i].textContent = i;
+            divContainer.appendChild(createdDivs[i]);
+        }    
+    }
+}
+
+createDivs();

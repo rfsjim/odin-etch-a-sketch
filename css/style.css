@@ -2,3 +2,8 @@ body {
     background-color: #bfbfbf;
     color: #000;
 }
+
+div#container div {
+    border: 4px solid #0000ff;
+    background-color: #6969ff;
+}
