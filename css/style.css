@@ -34,10 +34,6 @@ div#container div.row div {
     box-sizing: border-box;
 }
 
-div#container div.row div.hovered {
-    background-color: #bfbfbf;
-}
-
 #layout {
     width: 1140px;
     margin: auto;

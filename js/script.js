@@ -1,7 +1,7 @@
 /**
  * @fileoverview An Etch-A-Sketch Style Browser Application
  * @author James
- * @version 1.0.0
+ * @version 1.1.1
  * @date 17Th October 2025
  * @updated 17th October 2025
  * 
@@ -60,7 +60,7 @@ function createDivs(numberDivs = 16)
  */
 function getRandomColour()
 {
-    const randomColour = Math.floor(Math.random() * 16777216).toString(16);
+    const randomColour = Math.floor(Math.random() * 16777216).toString(16).padStart(6, '0');
     return `#${randomColour}`;
 }
 
@@ -71,9 +71,21 @@ function getRandomColour()
  */
 function hoverDiv(event)
 {
-    // event.target.classList.add("hovered");
+    let counter;
+    if (!event.target.dataset.count)
+    {
+        event.target.dataset.count = '1';
+        event.target.style.backgroundColor = getRandomColour();
+    }
+    else
+    {
+        counter = parseInt(event.target.dataset.count, 10);
+        counter++;
+        counter = Math.min(counter, 10);
+        event.target.dataset.count = counter.toString(10); 
+    }
 
-    event.target.style.backgroundColor = getRandomColour();
+    event.target.textContent = event.target.dataset.count;
 }
 
 /**
