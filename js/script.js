@@ -1,7 +1,7 @@
 /**
  * @fileoverview An Etch-A-Sketch Style Browser Application
  * @author James
- * @version 0.5.1
+ * @version 1.0.0
  * @date 17Th October 2025
  * @updated 17th October 2025
  * 
@@ -11,8 +11,6 @@
  */
 
 /**
- * Be careful with borders and margins, as they can adjust the size of the squares!
- * 
  * Extra credit
  * Transform the behavior of a square when interacting with the mouse by introducing a series of modifications.
  * 
@@ -34,6 +32,8 @@ function createDivs(numberDivs = 16)
     const divContainer = document.querySelector("div#container");
     divContainer.replaceChildren();
 
+    const cellSizePercent = 100 / numberDivs;
+
     for (let i = 0; i < numberDivs; i++)
     {
         const rowDivWrapper = document.createElement("div");
@@ -42,10 +42,8 @@ function createDivs(numberDivs = 16)
         for (let j = 0; j < numberDivs; j++)
         {
             const cell = document.createElement("div");
-            const cellSize = Math.floor(CELL_CONTAINER_WIDTH / numberDivs)
             cell.textContent = "";
-            cell.style.width = `${cellSize}px`;
-            cell.style.height = `${cellSize}px`;
+            cell.style.width = `${cellSizePercent}%`;
             rowDivWrapper.appendChild(cell);
         }
 
@@ -88,7 +86,7 @@ const sizeButton = document.querySelector("button");
 sizeButton.addEventListener("click", () => {
     let size = 120;
 
-    while (size > MAX_WIDTH_SIZE || Number.isNaN(size))
+    while (size > MAX_WIDTH_SIZE || size < 1 || Number.isNaN(size))
     {
         const input = prompt("What width of square? (Max 100)");
         if (input === null) return; // Handle cancelling prompt box
