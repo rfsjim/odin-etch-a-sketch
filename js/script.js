@@ -1,7 +1,7 @@
 /**
  * @fileoverview An Etch-A-Sketch Style Browser Application
  * @author James
- * @version 1.1.1
+ * @version 1.2.0
  * @date 17Th October 2025
  * @updated 17th October 2025
  * 
@@ -65,6 +65,22 @@ function getRandomColour()
 }
 
 /**
+ * Converts a hex colour into a RGBA colour
+ * @param {string} hexColour Original Hex colour
+ * @param {number} opacity Opacity level
+ * @returns {string} RGBA Colour 
+ */
+function hexToRGBA(hexColour, opacity)
+{
+    const hex = hexColour.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}
+
+/**
  * Transforms the style of divs when mouseover the divs
  * @param {event} event
  * @returns {void} 
@@ -75,14 +91,19 @@ function hoverDiv(event)
     if (!event.target.dataset.count)
     {
         event.target.dataset.count = '1';
-        event.target.style.backgroundColor = getRandomColour();
+        const hexColour = getRandomColour();
+        event.target.dataset.hex = hexColour;
+        event.target.style.backgroundColor = hexToRGBA(hexColour, 0.05);
     }
     else
     {
         counter = parseInt(event.target.dataset.count, 10);
         counter++;
         counter = Math.min(counter, 10);
-        event.target.dataset.count = counter.toString(10); 
+        event.target.dataset.count = counter.toString(10);
+
+        const hoverOpacity = counter * 0.1;
+        event.target.style.backgroundColor = hexToRGBA(event.target.dataset.hex, hoverOpacity);
     }
 
     event.target.textContent = event.target.dataset.count;
