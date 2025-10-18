@@ -1,7 +1,7 @@
 /**
  * @fileoverview An Etch-A-Sketch Style Browser Application
  * @author James
- * @version 1.2.0
+ * @version 1.2.1
  * @date 17Th October 2025
  * @updated 17th October 2025
  * 
