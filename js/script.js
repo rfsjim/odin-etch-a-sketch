@@ -11,21 +11,8 @@
  */
 
 /**
- * Extra credit
- * Transform the behavior of a square when interacting with the mouse by introducing a series of modifications.
- * 
- * Rather than squares being the same color throughout the grid, randomize the squares’ RGB values with each interaction.
- * 
- * Additionally, implement a progressive darkening effect where each interaction darkens the square by 10%.
- * The goal is to achieve a fully black (or completely colored) square in only ten interactions.
- * Hint: The opacity CSS property is useful here.
- * To learn how to use it, check this MDN docs article about the opacity CSS property.
- * You can choose to do either one or both of these challenges, it’s up to you.
- */
-
-/**
- * Creates Grid of divs
- * @param {number} [numberDivs = 16]
+ * Creates a square grid of divs with the specified number of cells per row and column
+ * @param {number} [numberDivs = 16] The number of cells per row and column in the grid
  * @returns {void} 
  */
 function createDivs(numberDivs = 16)
@@ -55,12 +42,12 @@ function createDivs(numberDivs = 16)
 }
 
 /**
- * Returns a random hex colour
+ * Creates a random hex colour
  * @returns {string} random hex colour
  */
 function getRandomColour()
 {
-    const randomColour = Math.floor(Math.random() * 16777216).toString(16).padStart(6, '0');
+    const randomColour = Math.floor(Math.random() * MAX_HEX_COLOUR).toString(16).padStart(6, '0');
     return `#${randomColour}`;
 }
 
@@ -81,8 +68,10 @@ function hexToRGBA(hexColour, opacity)
 }
 
 /**
- * Transforms the style of divs when mouseover the divs
- * @param {event} event
+ * Transforms the style of the div grid cells.
+ * When mouseover the divs, updates the cell with a random background colour
+ * Progressively darkens the colour each subsequent hover
+ * @param {MouseEvent} event The mouseover event
  * @returns {void} 
  */
 function hoverDiv(event)
@@ -105,8 +94,6 @@ function hoverDiv(event)
         const hoverOpacity = counter * 0.1;
         event.target.style.backgroundColor = hexToRGBA(event.target.dataset.hex, hoverOpacity);
     }
-
-    event.target.textContent = event.target.dataset.count;
 }
 
 /**
@@ -125,6 +112,7 @@ function addMouseOverEventListener()
 
 const MAX_WIDTH_SIZE = 100;
 const CELL_CONTAINER_WIDTH = 960;
+const MAX_HEX_COLOUR = 16777216;
 
 createDivs();
 
