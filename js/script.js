@@ -15,6 +15,7 @@
  * Transform the behavior of a square when interacting with the mouse by introducing a series of modifications.
  * 
  * Rather than squares being the same color throughout the grid, randomize the squares’ RGB values with each interaction.
+ * 
  * Additionally, implement a progressive darkening effect where each interaction darkens the square by 10%.
  * The goal is to achieve a fully black (or completely colored) square in only ten interactions.
  * Hint: The opacity CSS property is useful here.
@@ -54,13 +55,25 @@ function createDivs(numberDivs = 16)
 }
 
 /**
- * Add class to style of divs when mouseover the divs
+ * Returns a random hex colour
+ * @returns {string} random hex colour
+ */
+function getRandomColour()
+{
+    const randomColour = Math.floor(Math.random() * 16777216).toString(16);
+    return `#${randomColour}`;
+}
+
+/**
+ * Transforms the style of divs when mouseover the divs
  * @param {event} event
  * @returns {void} 
  */
 function hoverDiv(event)
 {
-    event.target.classList.add("hovered");
+    // event.target.classList.add("hovered");
+
+    event.target.style.backgroundColor = getRandomColour();
 }
 
 /**
